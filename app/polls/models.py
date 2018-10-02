@@ -1,10 +1,21 @@
+import datetime
+
 from django.db import models
+from django.utils import timezone
 
 
 class Question(models.Model):
 
     def __str__(self):
         return self.question_text
+
+    def was_published_recently(self):
+        """
+        자신의 게시일자 >= 지금 - 1
+
+        :return: 최근에 게시되었는지 여부
+        """
+        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
 
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('게시일자')
