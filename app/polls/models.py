@@ -15,7 +15,8 @@ class Question(models.Model):
 
         :return: 최근에 게시되었는지 여부
         """
-        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+        now = timezone.now()
+        return now - datetime.timedelta(days=1) <= self.pub_date <= now
 
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('게시일자')
